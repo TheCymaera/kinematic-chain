@@ -12,11 +12,11 @@ const renderer = Canvas2DRenderer.fromCanvas(canvas);
 new ResizeObserver(()=>{
 	const canvasLength = 20;
 	const ratio = canvas.clientHeight / canvas.clientWidth;
-	const viewRect = canvas.clientHeight < canvas.clientWidth ?
+	const viewportRect = canvas.clientHeight < canvas.clientWidth ?
 		Rect.fromCenter(Vec2.zero, canvasLength / ratio, canvasLength) : 
 		Rect.fromCenter(Vec2.zero, canvasLength, canvasLength * ratio);
 	
-	renderer.setViewportRect(viewRect);
+	renderer.setViewportRect(viewportRect);
 
 	canvas.width = canvas.clientWidth;
 	canvas.height = canvas.clientHeight;
@@ -58,7 +58,7 @@ AnimationFrameScheduler.periodic((timeElapsed)=>{
 
 
 let mouseCoordinate = Vec2.zero;
-canvas.onmousemove = (event)=>{
+canvas.onpointerdown = canvas.onpointermove = (event)=>{
 	const mouseClientPosition = new Vec2(event.clientX, event.clientY);
 	mouseCoordinate = Rect.mapPointOnto(renderer.clientRect(), mouseClientPosition, renderer.viewportRect());
 }
