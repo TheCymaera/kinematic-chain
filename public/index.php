@@ -2,8 +2,8 @@
 $url = strtok("$_SERVER[REQUEST_SCHEME]://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]", "\?|#");
 
 // page basic settings
-$page_title 		= "Double Pendulum";
-$page_description 	= "Double Pendulum.";
+$page_title 		= "Kinematic Chain";
+$page_description 	= "Kinematic Chain.";
 $page_author		= "Morgan";
 $page_keywords		= "Heledron, Cymaera";
 
