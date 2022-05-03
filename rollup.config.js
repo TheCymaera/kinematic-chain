@@ -12,7 +12,7 @@ export default (async ()=>{
 			input: 'src/main.ts',
 			output: {
 				sourcemap: true,
-				format: "iife",
+				format: "es",
 				file: "./public/dst/main.js"
 			},
 			plugins: [
