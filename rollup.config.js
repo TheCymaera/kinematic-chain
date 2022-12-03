@@ -1,30 +1,21 @@
-const importGlobal = (name)=>import(process.execPath + "/../../lib/node_modules/" + "/" + name).catch(()=>import(name));
+import sourcemaps from "rollup-plugin-sourcemaps";
+import typescript from "@rollup/plugin-typescript";
+import node from "@rollup/plugin-node-resolve";
+import terser from "@rollup/plugin-terser";
 
-export default (async ()=>{	
-	const { default: sourcemaps } = await importGlobal("rollup-plugin-sourcemaps");
-	const { default: typescript } = await importGlobal("@rollup/plugin-typescript");
-	const { default: node } = await importGlobal("@rollup/plugin-node-resolve");
-	const { default: scss } = await importGlobal("rollup-plugin-scss");
-	const { terser } = await importGlobal("rollup-plugin-terser");
-
-	return [
-		{
-			input: 'src/main.ts',
-			output: {
-				sourcemap: true,
-				format: "es",
-				file: "./public/dst/main.js"
-			},
-			plugins: [
-				node(),
-				typescript(),
-				sourcemaps(),
-				terser(),
-				scss({
-					output: "./public/dst/main.css",
-					outputStyle: "compressed",
-				}),
-			]
-		}
-	]
-})();
+export default [
+	{
+		input: 'src/main.ts',
+		output: {
+			sourcemap: true,
+			format: "es",
+			file: "./public/dst/main.js"
+		},
+		plugins: [
+			node(),
+			typescript(),
+			sourcemaps(),
+			terser(),
+		]
+	}
+];

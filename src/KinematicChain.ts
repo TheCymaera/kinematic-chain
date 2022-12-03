@@ -1,13 +1,13 @@
-import { Vec2 } from "open-utilities/geometry";
+import { Vector2 } from "open-utilities/geometry";
 
 export class KinematicChain {
 	segments: KinematicChain.Segment[] = [];
 
-	tipPosition(): Vec2 {
+	tipPosition(): Vector2 {
 		return this.segments[this.segments.length-1]!.tipPosition();
 	}
 
-	moveTipTo(position: Vec2) {
+	moveTipTo(position: Vector2) {
 		for (let i = this.segments.length - 1; i >= 0; i--) {
 			const segment = this.segments[i]!;
 			segment.moveTipTo(position);
@@ -15,7 +15,7 @@ export class KinematicChain {
 		}
 	}
 
-	moveTipTowards(position: Vec2, maxAmount: number) {
+	moveTipTowards(position: Vector2, maxAmount: number) {
 		const tip = this.tipPosition();
 		const distance = tip.distanceTo(position);
 		if (distance < maxAmount) {
@@ -25,7 +25,7 @@ export class KinematicChain {
 		}
 	}
 
-	anchorAt(position: Vec2) {
+	anchorAt(position: Vector2) {
 		const displacement = this.segments[0]!.base.clone().subtract(position);
 		for (const segment of this.segments) segment.base.subtract(displacement);
 	}
@@ -34,12 +34,12 @@ export class KinematicChain {
 export namespace KinematicChain {
 	export class Segment {
 		constructor(
-			public base: Vec2,
-			public span: Vec2,
+			public base: Vector2,
+			public span: Vector2,
 			public renderThickness: number,
 		) {}
 	
-		moveTipTo(position: Vec2) {
+		moveTipTo(position: Vector2) {
 			// rotate span
 			const difference = position.clone().subtract(this.base);
 			this.span.copy(difference.normalize().multiply(this.span.length()));

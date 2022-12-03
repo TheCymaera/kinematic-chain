@@ -1,55 +1,47 @@
-import { Rect, Vec2 } from "open-utilities/geometry";
+import { Matrix4, Rect, Vector2 } from "open-utilities/geometry";
 import { PathStyle } from "open-utilities/ui";
-import { AnimationFrameScheduler, Canvas2DRenderer } from "open-utilities/rendering-web";
+import { AnimationFrameScheduler, HTMLCanvas2D } from "open-utilities/ui";
 import { KinematicChain } from "./KinematicChain.js";
 import * as appearance from "./appearance.js";
-import "./ui.js";
-import "./ui.scss";
 
 const canvas = document.querySelector("canvas")!;
-const renderer = Canvas2DRenderer.fromCanvas(canvas);
+const renderer = HTMLCanvas2D.fromCanvas(canvas);
+const viewport = Rect.zero.clone();
 
 new ResizeObserver(()=>{
-	const viewportLength = 20;
-	const minCanvasLength = 1000;
-	
+	const minViewportLength = 20;
+
 	const ratio = canvas.clientHeight / canvas.clientWidth;
-	if (ratio > 1) {
-		const canvasLength = Math.max(minCanvasLength, canvas.clientWidth);
+	const width  = minViewportLength * (ratio > 1 ? 1 : 1 / ratio);
+	const height = minViewportLength * (ratio > 1 ? ratio : 1);
 
-		renderer.setViewportRect(Rect.fromCenter(Vec2.zero, viewportLength, viewportLength * ratio));
-		canvas.width = canvasLength;
-		canvas.height = canvasLength * ratio;
-	} else {
-		const canvasLength = Math.max(minCanvasLength, canvas.clientHeight);
-
-		renderer.setViewportRect(Rect.fromCenter(Vec2.zero, viewportLength / ratio, viewportLength));
-		canvas.width = canvasLength / ratio;
-		canvas.height = canvasLength;
-	}
+	renderer.setBitmapDimensions(new Vector2(canvas.clientWidth * devicePixelRatio, canvas.clientHeight * devicePixelRatio));
+	viewport.copy(Rect.fromCenter(Vector2.zero, width, height));
+	renderer.setTransform(Matrix4.ortho(viewport));
 
 	draw();
 }).observe(canvas);
 
 
-const anchor = Vec2.zero;
+const anchor = Vector2.zero;
 const chain = new KinematicChain();
-chain.segments.push(new KinematicChain.Segment(anchor.clone()     , new Vec2(0, .8), .2));
-chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vec2(0, .8), .2));
-chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vec2(0, .8), .175));
-chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vec2(0, .8), .175));
-chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vec2(0, .8), .15));
-chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vec2(0, .8), .15));
-chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vec2(0, .8), .125));
-chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vec2(0, .8), .125));
-chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vec2(0, .8), .1));
-chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vec2(0, .8), .1));
+chain.segments.push(new KinematicChain.Segment(anchor.clone()     , new Vector2(0, .8), .2));
+chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vector2(0, .8), .2));
+chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vector2(0, .8), .175));
+chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vector2(0, .8), .175));
+chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vector2(0, .8), .15));
+chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vector2(0, .8), .15));
+chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vector2(0, .8), .125));
+chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vector2(0, .8), .125));
+chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vector2(0, .8), .1));
+chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vector2(0, .8), .1));
 
 function draw() {
 	renderer.clear();
+	const color = appearance.chainColor();
 	for (const segment of chain.segments) {
 		renderer.drawLine(segment.base, segment.tipPosition(), new PathStyle({ 
-			color: appearance.chainColor, 
+			color: color, 
 			width: segment.renderThickness,
 			cap: PathStyle.Cap.Round,
 		}));
@@ -64,10 +56,10 @@ AnimationFrameScheduler.periodic((timeElapsed)=>{
 });
 
 
-let mouseCoordinate = Vec2.zero;
+let mouseCoordinate = Vector2.zero;
 canvas.onpointerdown = canvas.onpointermove = (event)=>{
-	const mouseClientPosition = new Vec2(event.clientX, event.clientY);
-	mouseCoordinate = Rect.mapPointOnto(renderer.clientRect(), mouseClientPosition, renderer.viewportRect());
+	const clientCoord = new Vector2(event.clientX, event.clientY);
+	mouseCoordinate = clientCoord.transformMatrix4(renderer.getClientInverseTransform());
 }
 
 

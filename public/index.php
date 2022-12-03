@@ -37,39 +37,26 @@ $page_og_type 			= "website";
     <meta property="og:type"  content="<?php echo $page_og_type;?>"/>
 
 	<!-- styles -->
-	<link rel="stylesheet" type="text/css" href="/shared/helion/v1/dst/index.css"/>
+	<link rel="stylesheet" type="text/css" href="/shared/helion/v1/index.css"/>
 	<link rel="stylesheet" type="text/css" href="/shared/fontawesome-free-5.13.1-web/css/all.min.css"/>
-	<link rel="stylesheet" type="text/css" href="./dst/main.css"/>
 
 	<!-- scripts -->
-	<script type="module" src="/shared/helion/v1/dst/index.js"></script>
+	<script type="module" src="/shared/site/dst/widgets/canvas-app/index.js"></script>
+	<script type="module" src="/shared/helion/v1/index.js"></script>
 	<script type="module" src="./dst/main.js"></script>
 </head>
 <body class="stack">
-	<canvas class="fill-window"></canvas>
-	<div class="layout action-buttons">
-		<button class="circle-button" title="Info" id="openDialog">
-			<i class="fa fa-info"></i>
-		</button>
-		<button class="circle-button" title="Share" id="share">
-			<i class="fa fa-share"></i>
-		</button>
-		<span style="flex: 1;"></span>
-		<a class="circle-button" title="Home" href="/">
-			<i class="fa fa-home"></i>
-		</a>
-	</div>
-	<panel- style="overflow: auto;">
-		<div style="margin: auto; max-width: 800px; width: 100%; padding: 1em;">
-			<?php include "./info.html"; ?>
-			<div style="height: 300px;"></div>
-		</div>
+	<site-canvas-app>
+		<canvas slot=canvas style="
+			background-color: var(--altSurface-background);
+			color: var(--altSurface-foreground);
 
-		<div class="layout fill-window action-buttons">
-			<button class="circle-button" title="Close" id="closeDialog"> 
-				<i class="fa fa-times"></i>
-			</button>
+			user-select: none;
+			-webkit-user-select: none;
+		"></canvas>
+		<div slot=info>
+			<?php include "./info.html"; ?>
 		</div>
-	</panel->
+	</site-canvas-app>
 </body>
 </html>

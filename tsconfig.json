@@ -16,7 +16,6 @@
 
 		"preserveConstEnums": true,
 		"sourceMap": true,
-		"declaration": true,
 
 		"skipDefaultLibCheck": true,
 

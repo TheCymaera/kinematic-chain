@@ -1,5 +1,5 @@
-import { Canvas2DRenderer } from "open-utilities/rendering-web";
+import { HTMLCanvas2D } from "open-utilities/ui";
 
-await new Promise(resolve=>window.addEventListener("load", resolve));
+const canvas = document.querySelector("canvas")!;
 
-export const chainColor = Canvas2DRenderer.sampleCSSColor(getComputedStyle(document.body).color);
+export const chainColor = ()=>HTMLCanvas2D.sampleCSSColor(getComputedStyle(canvas).color);

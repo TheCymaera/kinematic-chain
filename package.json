@@ -1,10 +1,21 @@
 {
-  "private": true,
-  "scripts": {
-    "build": "rollup -c",
-    "dev": "rollup -c -w"
-  },
-  "dependencies": {
-    "open-utilities": "file:../../../misc/npm-packages/open-utilities"
+	"private": true,
+	"type": "module",
+	"scripts": {
+	  "build": "rollup -c",
+	  "dev": "rollup -c -w"
+	},
+	"dependencies": {
+	  "open-utilities": "file:../../../misc/npm-packages/open-utilities"
+	},
+	"devDependencies": {
+	  "@rollup/plugin-node-resolve": "^15.0.1",
+	  "@rollup/plugin-terser": "^0.1.0",
+	  "@rollup/plugin-typescript": "^9.0.2",
+	  "rollup": "^3.4.0",
+	  "rollup-plugin-sourcemaps": "^0.6.3",
+	  "tslib": "^2.4.1",
+	  "typescript": "^4.9.3"
+	}
   }
-}
+  
