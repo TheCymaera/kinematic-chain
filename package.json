@@ -1,21 +1,26 @@
 {
-	"private": true,
-	"type": "module",
-	"scripts": {
-	  "build": "rollup -c",
-	  "dev": "rollup -c -w"
-	},
-	"dependencies": {
-	  "open-utilities": "file:../../../misc/npm-packages/open-utilities"
-	},
-	"devDependencies": {
-	  "@rollup/plugin-node-resolve": "^15.0.1",
-	  "@rollup/plugin-terser": "^0.1.0",
-	  "@rollup/plugin-typescript": "^9.0.2",
-	  "rollup": "^3.4.0",
-	  "rollup-plugin-sourcemaps": "^0.6.3",
-	  "tslib": "^2.4.1",
-	  "typescript": "^4.9.3"
-	}
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w"
+  },
+  "devDependencies": {
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.1.0",
+    "@rollup/plugin-typescript": "^9.0.2",
+    "node-sass": "^8.0.0",
+    "rollup": "^3.14.0",
+    "rollup-plugin-scss": "^4.0.0",
+    "rollup-plugin-string": "^3.0.0",
+    "sass": "^1.58.0",
+    "tslib": "^2.5.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@heledron/ui": "link:/Users/morgannew/Desktop/code/web/misc/npm-packages/heledron-ui",
+    "fontawesome-svgs": "^1.0.0",
+    "helion": "link:~/Desktop/code/web/misc/npm-packages/helion-v2/",
+    "open-utilities": "link:~/Desktop/code/web/misc/npm-packages/open-utilities/"
   }
-  
+}

@@ -1,4 +1,4 @@
-import { Vector2 } from "open-utilities/geometry";
+import { Vector2 } from "open-utilities/core/maths/mod.js";
 
 export class KinematicChain {
 	segments: KinematicChain.Segment[] = [];
@@ -21,7 +21,8 @@ export class KinematicChain {
 		if (distance < maxAmount) {
 			this.moveTipTo(position);
 		} else {
-			this.moveTipTo(tip.add(position.clone().subtract(tip).normalize().multiply(maxAmount)));
+			const direction = position.clone().subtract(tip).normalize();
+			if (direction) this.moveTipTo(tip.clone().add(direction.multiply(maxAmount)));
 		}
 	}
 
@@ -40,9 +41,11 @@ export namespace KinematicChain {
 		) {}
 	
 		moveTipTo(position: Vector2) {
+			const direction = position.clone().subtract(this.base).normalize();
+			if (!direction) return;
+
 			// rotate span
-			const difference = position.clone().subtract(this.base);
-			this.span.copy(difference.normalize().multiply(this.span.length()));
+			this.span.copy(direction.multiply(this.span.length()));
 			// move segment
 			this.base.copy(position).subtract(this.span);
 		}

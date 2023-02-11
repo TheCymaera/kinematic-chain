@@ -1,12 +1,23 @@
-import { Matrix4, Rect, Vector2 } from "open-utilities/geometry";
-import { PathStyle } from "open-utilities/ui";
-import { AnimationFrameScheduler, HTMLCanvas2D } from "open-utilities/ui";
+import { Matrix4, Rect, Vector2 } from "open-utilities/core/maths/mod.js";
+import { PathStyle } from "open-utilities/core/ui/mod.js";
+import { AnimationFrameScheduler, HTMLCanvas2D } from "open-utilities/web/ui/mod.js";
 import { KinematicChain } from "./KinematicChain.js";
-import * as appearance from "./appearance.js";
 
-const canvas = document.querySelector("canvas")!;
+import { CanvasApp } from "@heledron/ui/CanvasApp.js";
+import "./main.css";
+import infoHTML from "./info.html";
+import {} from "helion/CodeBlock.js";
+
+const canvas = document.createElement("canvas");
 const renderer = HTMLCanvas2D.fromCanvas(canvas);
 const viewport = Rect.zero.clone();
+
+const canvasApp = new CanvasApp();
+canvasApp.addLayer(canvas);
+canvasApp.infoDialog.innerHTML = infoHTML;
+canvasApp.setGithubLink("https://github.com/TheCymaera/kinematic-chain");
+canvasApp.node.classList.add("helion-fill-parent");
+document.body.append(canvasApp.node);
 
 new ResizeObserver(()=>{
 	const minViewportLength = 20;
@@ -36,9 +47,11 @@ chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vector2(
 chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vector2(0, .8), .1));
 chain.segments.push(new KinematicChain.Segment(chain.tipPosition(), new Vector2(0, .8), .1));
 
+export const chainColor = ()=>HTMLCanvas2D.sampleCSSColor(getComputedStyle(canvas).color);
+
 function draw() {
 	renderer.clear();
-	const color = appearance.chainColor();
+	const color = chainColor();
 	for (const segment of chain.segments) {
 		renderer.drawLine(segment.base, segment.tipPosition(), new PathStyle({ 
 			color: color, 
@@ -50,18 +63,17 @@ function draw() {
 
 AnimationFrameScheduler.periodic((timeElapsed)=>{
 	const moveAmount = timeElapsed.seconds * 20;
-	chain.moveTipTowards(mouseCoordinate, moveAmount);
+	if (mouseCoordinate) chain.moveTipTowards(mouseCoordinate, moveAmount);
 	chain.anchorAt(anchor);
 	draw();
 });
 
 
-let mouseCoordinate = Vector2.zero;
+let mouseCoordinate: Vector2|undefined = undefined;
 canvas.onpointerdown = canvas.onpointermove = (event)=>{
 	const clientCoord = new Vector2(event.clientX, event.clientY);
 	mouseCoordinate = clientCoord.transformMatrix4(renderer.getClientInverseTransform());
 }
-
 
 console.log(`For debugging, see "app"`)
 Object.defineProperty(window, "app", {

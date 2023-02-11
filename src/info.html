@@ -4,10 +4,10 @@
 	Each segment is represented using two vectors: <code>base</code> and <code>span</code>.
 </p>
 
-<code-block dedent style="white-space: pre">
+<helion-code-block dedent style="white-space: pre">
 	base ----------> tip
 	        span
-</code-block>
+</helion-code-block>
 <p>
 	The segment's <code>tip</code> is the sum of its <code>base</code> and <code>span</code>.
 </p>
@@ -18,13 +18,15 @@
 	Move segment tip to new position: <br />
 	<code>segment.moveTipTo(position: Vec2)</code>
 </p>
-<code-block dedent style="white-space: pre">
+<helion-code-block dedent style="white-space: pre">
+	const direction = position.clone().subtract(this.base).normalize();
+	if (!direction) return;
+
 	// rotate span
-	const difference = position.clone().subtract(this.base);
-	this.span.copy(difference.normalize().multiply(this.span.length()));
+	this.span.copy(direction.multiply(this.span.length()));
 	// move segment
 	this.base.copy(position).subtract(this.span);
-</code-block>
+</helion-code-block>
 
 <br />
 
@@ -32,13 +34,13 @@
 	Move entire chain to new position: <br />
 	<code>chain.moveTipTo(position: Vec2)</code>
 </p>
-<code-block dedent style="white-space: pre">
+<helion-code-block dedent style="white-space: pre">
 	for (let i = this.segments.length - 1; i >= 0; i--) {
 		const segment = this.segments[i]!;
 		segment.moveTipTo(position);
 		position = segment.base;
 	}
-</code-block>
+</helion-code-block>
 
 <br />
 
@@ -46,10 +48,10 @@
 	Anchor chain at a fixed position: <br />
 	<code>chain.anchorAt(position: Vec2)</code>
 </p>
-<code-block dedent style="white-space: pre">
+<helion-code-block dedent style="white-space: pre">
 	const displacement = this.segments[0]!.base.clone().subtract(position);
 	for (const segment of this.segments) segment.base.subtract(displacement);
-</code-block>
+</helion-code-block>
 
 <br />
 
@@ -60,3 +62,4 @@
 	<li><a href="https://www.youtube.com/watch?v=uuKFynjcelw" target="_blank">Kinematic Chain in Minecraft</a></li>
 </ul>
 
+<div style="height: 50vh;"></div>
