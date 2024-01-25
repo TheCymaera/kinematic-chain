@@ -4,7 +4,7 @@
 	Each segment is represented using two vectors: <code>base</code> and <code>span</code>.
 </p>
 
-<code class="dedent" style="display: block; padding: .5em; white-space: pre">
+<code class="dedent" style="display: block; padding: .5em; white-space: pre; overflow: auto;">
 	base ----------> tip
 	        span
 </code>
@@ -18,7 +18,7 @@
 	Move segment tip to new position: <br />
 	<code>segment.moveTipTo(position: Vec2)</code>
 </p>
-<code class="dedent" style="display: block; padding: .5em; white-space: pre">
+<code class="dedent" style="display: block; padding: .5em; white-space: pre; overflow: auto;">
 	const direction = position.clone().subtract(this.base).normalize();
 	if (!direction) return;
 
@@ -34,7 +34,7 @@
 	Move entire chain to new position: <br />
 	<code>chain.moveTipTo(position: Vec2)</code>
 </p>
-<code class="dedent" style="display: block; padding: .5em; white-space: pre">
+<code class="dedent" style="display: block; padding: .5em; white-space: pre; overflow: auto;">
 	for (let i = this.segments.length - 1; i >= 0; i--) {
 		const segment = this.segments[i]!;
 		segment.moveTipTo(position);
@@ -48,7 +48,7 @@
 	Anchor chain at a fixed position: <br />
 	<code>chain.anchorAt(position: Vec2)</code>
 </p>
-<code class="dedent" style="display: block; padding: .5em; white-space: pre">
+<code class="dedent" style="display: block; padding: .5em; white-space: pre; overflow: auto;">
 	const displacement = this.segments[0]!.base.clone().subtract(position);
 	for (const segment of this.segments) segment.base.subtract(displacement);
 </code>

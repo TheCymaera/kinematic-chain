@@ -1,3 +1,7 @@
+body {
+	overflow: hidden;
+}
+
 .CircleButton {
 	--width: 50px;
 	height: var(--width);

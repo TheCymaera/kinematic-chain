@@ -19,7 +19,7 @@ export function App({ layers, info, githubLink }: { layers: Element[], info: str
 		url: location.href
 	};
 
-	return <div style="position: absolute; inset: 0;">
+	return <div style="position: fixed; inset: 0; overflow: hidden;">
 		<div id="layers" style="position: absolute; inset: 0;">
 			{layers}
 		</div>
@@ -35,7 +35,7 @@ export function App({ layers, info, githubLink }: { layers: Element[], info: str
 		</div>
 		
 		<div id="dialog" ref={dialog} class="Surface" style="position: absolute; inset: 0;" data-opened={dialogOpened() ? "" : undefined}>
-			<div style="max-width: 800px; margin: auto" innerHTML={info} />
+			<div style="max-width: 800px; margin: auto; padding: 1rem;" innerHTML={info} />
 
 			<button class="CircleButton" onClick={()=>setDialogOpened(false)} innerHTML={fa5_solid_times} />
 		</div>
