@@ -3,6 +3,9 @@ import { Show, createSignal, onMount } from "solid-js";
 import "./skin.css";
 import "./main.css";
 
+// Safari fix
+document.documentElement.addEventListener("touchstart",()=>undefined);
+
 export function App({ layers, info, githubLink }: { layers: Element[], info: string, githubLink: string }) {
 	const [ dialogOpened, setDialogOpened ] = createSignal(false);
 
