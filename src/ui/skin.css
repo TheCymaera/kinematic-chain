@@ -1,0 +1,78 @@
+:root {
+	--surface: #eee;
+	--onSurface: #444;
+
+	--primary: #0cc;
+
+	--button: #444;
+	--onButton: #eee;
+
+	--surfaceContainer: #fff;
+	--onSurfaceContainer: #444;
+}
+
+
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+
+	background-color: var(--surface);
+	color: var(--onSurface);
+	accent-color: var(--primary);
+
+	font-family: Tahoma, sans-serif;
+
+	line-height: 1.5;
+	font-size: 16px;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+hr {
+	margin: 0;
+	border: none;
+	border-top: 1px solid var(--divider);
+}
+
+button, input {
+	font-family: inherit;
+	font-size: inherit;
+}
+
+button, a {
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+a {
+	color: var(--primary);
+}
+
+code {
+	font-family: Consolas, monospace;
+	background-color: var(--surface);
+	color: var(--onSurface);
+}
+
+/*small {
+	font-size: 0.8em;
+	opacity: .8;
+}
+
+input {
+	border: 1px solid var(--divider);
+	border-radius: .5rem;
+	padding: .8rem;
+	outline: transparent solid 2px;
+	outline-offset: -2px;
+
+	transition: outline-color .1s ease-in-out;
+}
+
+input:focus {
+	outline-color: var(--primary);
+}*/

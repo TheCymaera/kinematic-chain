@@ -2,16 +2,14 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "vite build",
-    "dev": "vite dev"
+    "dev": "vite dev",
+    "build": "vite build"
   },
   "devDependencies": {
-    "vite": "^4.1.2"
-  },
-  "dependencies": {
-    "@heledron/ui": "link:~/Desktop/code/web/misc/npm-packages/heledron-ui/",
     "fontawesome-svgs": "^1.0.2",
-    "helion": "link:~/Desktop/code/web/misc/npm-packages/helion-v2/",
-    "open-utilities": "link:~/Desktop/code/web/misc/npm-packages/open-utilities/"
+    "open-utilities": "^1.0.6",
+    "solid-js": "^1.8.12",
+    "vite": "^4.5.2",
+    "vite-plugin-solid": "^2.9.1"
   }
 }

@@ -2,22 +2,21 @@ import { Matrix4, Rect, Vector2 } from "open-utilities/core/maths/mod.js";
 import { PathStyle } from "open-utilities/core/ui/mod.js";
 import { AnimationFrameScheduler, HTMLCanvas2D } from "open-utilities/web/ui/mod.js";
 import { KinematicChain } from "./KinematicChain.js";
+import { render } from "solid-js/web";
 
-import { CanvasApp } from "@heledron/ui/CanvasApp.js";
 import "./main.css";
 import infoHTML from "./info.html?raw";
-import {} from "helion/CodeBlock.js";
+import { App } from "./ui/App.jsx";
 
 const canvas = document.createElement("canvas");
 const renderer = HTMLCanvas2D.fromCanvas(canvas);
 const viewport = Rect.zero.clone();
 
-const canvasApp = new CanvasApp();
-canvasApp.addLayer(canvas);
-canvasApp.infoDialog.innerHTML = infoHTML;
-canvasApp.setGithubLink("https://github.com/TheCymaera/kinematic-chain");
-canvasApp.node.classList.add("helion-fill-parent");
-document.body.append(canvasApp.node);
+render(()=>App({
+	layers: [canvas],
+	info: infoHTML,
+	githubLink: "https://github.com/TheCymaera/kinematic-chain",
+}), document.body);
 
 new ResizeObserver(()=>{
 	const minViewportLength = 20;

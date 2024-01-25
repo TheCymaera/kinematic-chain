@@ -4,10 +4,10 @@
 	Each segment is represented using two vectors: <code>base</code> and <code>span</code>.
 </p>
 
-<helion-code-block dedent style="white-space: pre">
+<code class="dedent" style="display: block; padding: .5em; white-space: pre">
 	base ----------> tip
 	        span
-</helion-code-block>
+</code>
 <p>
 	The segment's <code>tip</code> is the sum of its <code>base</code> and <code>span</code>.
 </p>
@@ -18,7 +18,7 @@
 	Move segment tip to new position: <br />
 	<code>segment.moveTipTo(position: Vec2)</code>
 </p>
-<helion-code-block dedent style="white-space: pre">
+<code class="dedent" style="display: block; padding: .5em; white-space: pre">
 	const direction = position.clone().subtract(this.base).normalize();
 	if (!direction) return;
 
@@ -26,7 +26,7 @@
 	this.span.copy(direction.multiply(this.span.length()));
 	// move segment
 	this.base.copy(position).subtract(this.span);
-</helion-code-block>
+</code>
 
 <br />
 
@@ -34,13 +34,13 @@
 	Move entire chain to new position: <br />
 	<code>chain.moveTipTo(position: Vec2)</code>
 </p>
-<helion-code-block dedent style="white-space: pre">
+<code class="dedent" style="display: block; padding: .5em; white-space: pre">
 	for (let i = this.segments.length - 1; i >= 0; i--) {
 		const segment = this.segments[i]!;
 		segment.moveTipTo(position);
 		position = segment.base;
 	}
-</helion-code-block>
+</code>
 
 <br />
 
@@ -48,10 +48,10 @@
 	Anchor chain at a fixed position: <br />
 	<code>chain.anchorAt(position: Vec2)</code>
 </p>
-<helion-code-block dedent style="white-space: pre">
+<code class="dedent" style="display: block; padding: .5em; white-space: pre">
 	const displacement = this.segments[0]!.base.clone().subtract(position);
 	for (const segment of this.segments) segment.base.subtract(displacement);
-</helion-code-block>
+</code>
 
 <br />
 

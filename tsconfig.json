@@ -1,9 +1,10 @@
 {
+	"include": ["src/**/*"],
 	"compilerOptions": {
 		"rootDir": "src",
 		"outDir": "dst",
 		
-		"module": "ESNext",
+		"module": "NodeNext",
 		"target": "ESNext",
 
 		"moduleResolution": "nodenext",
@@ -14,13 +15,16 @@
 		"noUncheckedIndexedAccess": true,
 		"alwaysStrict": true,
 
-		"importsNotUsedAsValues": "preserve",
+		"verbatimModuleSyntax": true,
 		"preserveConstEnums": true,
 
 		"skipDefaultLibCheck": true,
 
-		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"lib": ["ESNext", "DOM", "DOM.Iterable"],
 
 		"baseUrl": ".",
+
+		"jsx": "preserve",
+		"jsxImportSource": "solid-js",
 	}
 }
